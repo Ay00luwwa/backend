@@ -27,7 +27,7 @@ def user_signup(request):
             messages.success(request, f'Your account has been created successfully, you can now log in!')
             return redirect('login')
     else:
-        form = SignupForm()  # No need to set initial values here
+        form = SignupForm()
     return render(request, 'signup.html', {'form': form})
 
 
