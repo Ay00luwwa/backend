@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-# import environ
+import environ
 import os
 
 
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.sites"
+    "django.contrib.sites",
     "backendApp",
     "googleAuth",
     "psycopg2",
@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
 ]
 
+SITE_ID = 1
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -65,6 +67,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "social_django.middleware.SocialAuthExceptionMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "backendProj.urls"
@@ -80,13 +84,13 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "social_django.contextprocessors.backends",
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = "backendProj.wsgi.application"
-
 
 
 
@@ -146,3 +150,28 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'SCOPE' : [
+#             'profile',
+#             'email'
+#         ],
+#         'APP': {
+#             'client_id': os.environ['CLIENT_ID'],
+#             'secret': os.environ['CLIENT_SECRET'],
+#         },
+#         'AUTH_PARAMS': {
+#             'access_type':'offline',
+#         }
+#     }
+# }
