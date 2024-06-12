@@ -22,4 +22,5 @@ from backendApp import urls
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("backendApp.urls")),
+    path('social/', include('social_django.urls', namespace='social'))
 ]

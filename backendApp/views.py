@@ -54,4 +54,7 @@ def user_logout(request):
 
 
 # def home(request):
+
+
+#products view
     
